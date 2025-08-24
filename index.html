@@ -1,0 +1,1735 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio</title>
+    <!-- removed particles.js -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Special+Gothic+Expanded+One&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg-color: #060606;
+        --text-color: #fff;
+        --card-bg: rgba(255, 255, 255, 0.1);
+        --panel-bg: rgba(255, 255, 255, 0.08); /* glassy */
+        --highlight-color: #f6f3dd;
+        --shadow: 0 0 12px rgba(255, 255, 255, 0.3);
+        --hover-shadow: 0 8px 32px 0 rgba(36, 38, 94, 0.18);
+        --lift: translateY(-8px) scale(1.015);
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 100%;
+        min-height: 100%;
+      }
+      body {
+        font-family: "Special Gothic Expanded One", sans-serif;
+        color: var(--text-color);
+        background: var(--bg-color);
+        overflow-x: hidden;
+        position: relative;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+      }
+
+      /* ==== NEW CRAZY BACKGROUND (animated neon blobs + warp) ==== */
+      #particles-js {
+        position: fixed;
+        inset: 0;
+        z-index: -2;
+        overflow: hidden;
+        background: radial-gradient(
+          1200px 900px at 10% 10%,
+          #0a0a0f 0%,
+          #050507 60%,
+          #000 100%
+        );
+        animation: hueShift 18s linear infinite;
+        filter: saturate(120%);
+      }
+      #particles-js::before,
+      #particles-js::after {
+        content: "";
+        position: absolute;
+        width: 120vmax;
+        height: 120vmax;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        background: radial-gradient(
+              closest-side,
+              rgba(255, 80, 120, 0.55),
+              rgba(255, 80, 120, 0) 60%
+            )
+            10% 15% / 40% 40% no-repeat,
+          radial-gradient(
+              closest-side,
+              rgba(120, 190, 255, 0.5),
+              rgba(120, 190, 255, 0) 60%
+            )
+            70% 30% / 38% 38% no-repeat,
+          radial-gradient(
+              closest-side,
+              rgba(160, 255, 140, 0.45),
+              rgba(160, 255, 140, 0) 60%
+            )
+            30% 75% / 42% 42% no-repeat,
+          radial-gradient(
+              closest-side,
+              rgba(255, 220, 120, 0.45),
+              rgba(255, 220, 120, 0) 60%
+            )
+            85% 70% / 32% 32% no-repeat;
+        filter: blur(60px);
+        opacity: 0.9;
+        will-change: transform, opacity, filter;
+      }
+      #particles-js::before {
+        animation: blobDrift1 28s ease-in-out infinite alternate;
+        mix-blend-mode: screen;
+      }
+      #particles-js::after {
+        animation: blobDrift2 32s ease-in-out infinite alternate;
+        mix-blend-mode: lighten;
+      }
+      /* Subtle flowing warp grid overlay for extra “crazy” depth */
+      .bg-warp {
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        background: repeating-conic-gradient(
+            from 0deg,
+            rgba(255, 255, 255, 0.06) 0 2deg,
+            transparent 2deg 8deg
+          ),
+          radial-gradient(
+            1200px 900px at 80% 30%,
+            rgba(0, 160, 255, 0.1),
+            transparent 60%
+          );
+        mask-image: radial-gradient(
+          1200px 900px at 50% 50%,
+          #000 40%,
+          transparent 100%
+        );
+        opacity: 0.35;
+        animation: warpDrift 30s ease-in-out infinite alternate;
+        pointer-events: none;
+      }
+
+      @keyframes hueShift {
+        0% {
+          filter: saturate(120%) hue-rotate(0deg);
+        }
+        100% {
+          filter: saturate(120%) hue-rotate(360deg);
+        }
+      }
+      @keyframes blobDrift1 {
+        0% {
+          transform: translate(-50%, -50%) rotate(0deg) scale(1);
+        }
+        50% {
+          transform: translate(-48%, -52%) rotate(15deg) scale(1.1);
+        }
+        100% {
+          transform: translate(-52%, -48%) rotate(35deg) scale(0.95);
+        }
+      }
+      @keyframes blobDrift2 {
+        0% {
+          transform: translate(-50%, -50%) rotate(0deg) scale(1.05);
+        }
+        50% {
+          transform: translate(-46%, -54%) rotate(-12deg) scale(1.12);
+        }
+        100% {
+          transform: translate(-54%, -46%) rotate(-28deg) scale(0.98);
+        }
+      }
+      @keyframes warpDrift {
+        0% {
+          transform: scale(1) rotate(0deg);
+        }
+        100% {
+          transform: scale(1.06) rotate(2deg);
+        }
+      }
+      
+      @keyframes float {
+        0%, 100% {
+          transform: translateY(0px) translateX(0px);
+          opacity: 0.3;
+        }
+        25% {
+          transform: translateY(-20px) translateX(10px);
+          opacity: 0.8;
+        }
+        50% {
+          transform: translateY(-40px) translateX(-5px);
+          opacity: 1;
+        }
+        75% {
+          transform: translateY(-20px) translateX(-15px);
+          opacity: 0.6;
+        }
+      }
+      /* ==== END INTERACTIVE BACKGROUND ==== */
+
+      .content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        min-height: 100vh;
+        padding: 20px;
+      }
+      .profile-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 15px;
+        transition: margin 0.5s ease-in-out;
+      }
+      .profile-pic {
+        width: 100%;
+        max-width: 500px;
+        height: auto;
+        object-fit: cover;
+        border-radius: 15px;
+        border: 4px solid #fff;
+        box-shadow: var(--shadow);
+        transition: all 0.5s ease-in-out;
+        margin-bottom: 10px;
+        backdrop-filter: blur(6px) saturate(140%); /* glass over bg */
+      }
+      .profile-pic:hover {
+        transform: scale(1.05);
+      }
+
+      /* Glass morphism surfaces */
+      .text-box,
+      .skills-panel,
+      .hobbies-dashboard,
+      .cert-panel,
+      .proj-panel,
+      .contact-panel {
+        background: var(--panel-bg);
+        backdrop-filter: blur(14px) saturate(160%);
+        -webkit-backdrop-filter: blur(14px) saturate(160%);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+      }
+
+      .text-box {
+        border-radius: 10px;
+        padding: 40px;
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.08);
+        max-width: 600px;
+        margin: 20px;
+        min-width: 280px;
+        flex: 1;
+        transition: all 0.5s ease-in-out;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        font-weight: bold;
+        white-space: nowrap;
+        overflow: hidden;
+        border-right: 3px solid #fff;
+        margin: 0 auto;
+        width: fit-content;
+        transition: font-size 0.5s ease-in-out;
+      }
+      h2.section-title {
+        font-size: 1.8rem;
+        color: var(--highlight-color);
+      }
+      p {
+        font-size: 1.1rem;
+        text-align: center;
+        margin-top: 10px;
+      }
+      .btn {
+        background: #fff;
+        color: navy;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: bold;
+        margin: 15px 10px 10px;
+        transition: all 0.3s;
+        text-decoration: none;
+        display: inline-block;
+        box-shadow: 0 4px 14px rgba(255, 255, 255, 0.15);
+      }
+      .btn:hover {
+        background: #0003;
+        color: #fff;
+        transform: scale(1.1);
+      }
+      .button-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 20px;
+      }
+      .button-section .btn {
+        margin-bottom: 15px;
+      }
+      .socials {
+        margin-top: 15px;
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+      }
+      .socials a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 1.5rem;
+        transition: color 0.3s, transform 0.3s;
+      }
+      .socials a:hover {
+        color: var(--highlight-color);
+        transform: scale(1.2);
+      }
+      .scroll-btn {
+        position: fixed;
+        background-color: rgba(98, 98, 98, 0.86);
+        color: #ffffff;
+        border: none;
+        padding: 10px 17px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        border-radius: 50%;
+        cursor: pointer;
+        z-index: 1000;
+        box-shadow: 0 0 8px rgba(255, 254, 254, 0.67);
+        transition: background 0.3s, transform 0.3s;
+      }
+      .scroll-btn:hover {
+        background: #2526278a;
+        color: #fff;
+        transform: scale(1.15);
+      }
+      .scroll-up {
+        top: 20px;
+        left: 20px;
+      }
+      .scroll-down {
+        bottom: 20px;
+        left: 20px;
+      }
+
+      /* ===== STYLES FOR SCROLL ANIMATION ===== */
+      .intro-container {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        max-width: 1200px;
+        transition: all 0.5s ease-in-out;
+        will-change: transform, top, right, padding;
+      }
+      .intro-placeholder {
+        display: none;
+      }
+      .intro-container.scrolled + .intro-placeholder {
+        display: block;
+      }
+      .intro-container.scrolled {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        width: auto;
+        padding: 10px;
+        background: var(--panel-bg);
+        border-radius: 15px;
+        box-shadow: var(--shadow);
+        z-index: 1001;
+        justify-content: flex-end;
+        backdrop-filter: blur(12px) saturate(160%);
+      }
+      .intro-container.scrolled .profile-section {
+        margin: 0 15px 0 0;
+      }
+      .intro-container.scrolled .profile-pic {
+        width: 60px;
+        height: 60px;
+        border-width: 2px;
+        margin-bottom: 0;
+      }
+      .intro-container.scrolled .profile-pic:hover {
+        transform: scale(1.1);
+      }
+      .intro-container.scrolled .text-box {
+        background: transparent;
+        backdrop-filter: none;
+        box-shadow: none;
+        padding: 0;
+        margin: 0;
+        max-width: none;
+        flex: initial;
+        display: flex;
+        align-items: center;
+      }
+      .intro-container.scrolled h1 {
+        font-size: 1.5rem;
+        border-right: none;
+        margin: 0;
+      }
+      .intro-container.scrolled .text-box p,
+      .intro-container.scrolled .text-box .button-section {
+        display: none;
+      }
+      /* ===== END OF SCROLL STYLES ===== */
+
+      .dashboard {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        max-width: 1000px;
+        margin: 0 auto;
+        gap: 36px;
+        flex-wrap: wrap;
+        padding: 40px 20px;
+      }
+      .skills-panel {
+        flex: 1 1 100%;
+        max-width: 800px;
+        border-radius: 16px;
+        box-shadow: var(--shadow);
+        padding: 25px;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        margin-bottom: 25px;
+      }
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+        margin-top: 20px;
+      }
+
+      .skills-section {
+        text-align: center;
+        width: 100%;
+      }
+      .skills-section h2 {
+        margin-bottom: 25px;
+      }
+      .skill {
+        margin-bottom: 20px;
+      }
+      .skill p {
+        margin-bottom: 8px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+      }
+      .skill p i {
+        font-size: 1.5rem;
+        color: var(--highlight-color);
+      }
+      .skill-bar {
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 10px;
+        overflow: hidden;
+        width: 100%;
+      }
+      .skill-level {
+        background: var(--highlight-color);
+        color: #0c0c0c;
+        padding: 8px;
+        font-weight: bold;
+        border-radius: 10px;
+        width: 0;
+        transition: width 1.5s ease-in-out;
+        text-align: center;
+      }
+
+      /* ===== HOBBIES SECTION STYLES (DROPDOWN) ===== */
+      .hobbies-dashboard {
+        width: 100%;
+        max-width: 1000px;
+        margin: 20px auto 40px;
+        padding: 0 20px;
+        border-radius: 16px;
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+      .hobbies-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 25px;
+        cursor: pointer;
+      }
+      .hobbies-header .section-title {
+        margin-bottom: 0;
+      }
+      .dropdown-arrow {
+        font-size: 1.5rem;
+        transition: transform 0.4s ease;
+      }
+      .hobbies-dashboard.open .dropdown-arrow {
+        transform: rotate(180deg);
+      }
+      .hobbies-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.7s ease-in-out, padding 0.5s ease;
+      }
+      .hobbies-content.open {
+        max-height: 800px;
+        padding: 0 25px 25px 25px;
+      }
+      .hobbies-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 20px;
+      }
+      .hobby-card {
+        background-color: transparent;
+        height: 180px;
+        perspective: 1000px;
+        cursor: pointer;
+      }
+      .hobby-card-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transition: transform 0.7s;
+        transform-style: preserve-3d;
+      }
+      .hobby-card.is-flipped .hobby-card-inner {
+        transform: rotateY(180deg);
+      }
+      .hobby-card-front,
+      .hobby-card-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        border-radius: 16px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+        background: rgba(0, 10, 20, 0.35);
+        backdrop-filter: blur(8px) saturate(140%);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+      }
+      .hobby-card:hover .hobby-card-front {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+      }
+      .hobby-card-front .icon {
+        font-size: 2rem;
+        margin-bottom: 10px;
+      }
+      .hobby-card-front .title {
+        font-size: 1.1rem;
+        font-weight: bold;
+      }
+      .hobby-card-back {
+        transform: rotateY(180deg);
+        justify-content: flex-start;
+      }
+      .hobby-card-back h3 {
+        color: var(--highlight-color);
+        margin-bottom: 10px;
+        border-bottom: 1px solid var(--highlight-color);
+        padding-bottom: 5px;
+        font-size: 1rem;
+      }
+      .hobby-card-back ul {
+        list-style: none;
+        padding: 0;
+        text-align: center;
+      }
+      .hobby-card-back li {
+        font-size: 0.8rem;
+        margin-bottom: 5px;
+      }
+      /* ===== END OF HOBBIES SECTION STYLES ===== */
+
+      .lower-dashboard-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 36px;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding-bottom: 40px;
+      }
+      .cert-panel,
+      .proj-panel {
+        flex: 1 1 400px;
+        min-width: 320px;
+        max-width: 500px;
+        border-radius: 16px;
+        box-shadow: var(--shadow);
+        margin-bottom: 25px;
+        cursor: pointer;
+        transition: box-shadow 0.25s, transform 0.25s;
+        will-change: box-shadow, transform;
+        overflow: hidden;
+        position: relative;
+      }
+      .cert-panel:hover,
+      .proj-panel:hover {
+        box-shadow: 0 8px 36px 0 rgba(36, 38, 94, 0.19),
+          0 6px 40px 0 rgba(64, 64, 128, 0.18);
+        transform: var(--lift);
+        z-index: 2;
+      }
+      .panel-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.6s cubic-bezier(0.18, 0.88, 0.56, 1),
+          padding 0.4s;
+        background: rgba(0, 0, 0, 0.03);
+      }
+      .cert-panel.open .panel-content,
+      .proj-panel.open .panel-content {
+        max-height: 800px;
+        padding: 18px 0 2px;
+        overflow: visible;
+      }
+      .panel-header {
+        background: transparent;
+        padding: 24px 22px 18px;
+        font-size: 1.3rem;
+        font-weight: bold;
+        border-bottom: 1px solid #fff2;
+        cursor: pointer;
+        user-select: none;
+        text-align: center;
+        letter-spacing: 0.02em;
+        color: var(--highlight-color);
+        transition: background 0.2s;
+        backdrop-filter: blur(8px);
+      }
+      .cert-gallery,
+      .projects-gallery {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 18px;
+        margin-top: 10px;
+        justify-items: center;
+      }
+      .cert-card,
+      .project-card {
+        background: var(--card-bg);
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        transition: box-shadow 0.3s, transform 0.3s;
+        margin-bottom: 8px;
+        max-width: 400px;
+        text-align: center;
+        backdrop-filter: blur(8px) saturate(140%);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+      }
+      .cert-card img,
+      .project-card img {
+        width: 60%;
+        max-width: 250px;
+        height: auto;
+        max-height: 150px;
+        object-fit: contain;
+        margin: 20px auto 0;
+        display: block;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+      }
+      .cert-card p,
+      .project-card p {
+        padding: 15px;
+        font-size: 1.1rem;
+      }
+
+      /* ===== CONSTRUCTION OVERLAY STYLES ===== */
+      .construction-overlay {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+        text-align: center;
+        min-height: 300px;
+      }
+      
+      .construction-icon {
+        font-size: 4rem;
+        margin-bottom: 20px;
+        animation: bounce 2s ease-in-out infinite;
+      }
+      
+      .construction-overlay h3 {
+        color: var(--highlight-color);
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+        font-weight: bold;
+      }
+      
+      .construction-overlay p {
+        color: var(--text-color);
+        font-size: 1.1rem;
+        margin-bottom: 30px;
+        opacity: 0.9;
+        max-width: 300px;
+        line-height: 1.5;
+      }
+      
+      .construction-animation {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+      
+      .construction-bar {
+        width: 4px;
+        height: 20px;
+        background: var(--highlight-color);
+        border-radius: 2px;
+        animation: constructionPulse 1.5s ease-in-out infinite;
+      }
+      
+      .construction-bar:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      
+      .construction-bar:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+      
+      @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% {
+          transform: translateY(0);
+        }
+        40% {
+          transform: translateY(-10px);
+        }
+        60% {
+          transform: translateY(-5px);
+        }
+      }
+      
+      @keyframes constructionPulse {
+        0%, 100% {
+          height: 20px;
+          opacity: 0.6;
+        }
+        50% {
+          height: 30px;
+          opacity: 1;
+        }
+      }
+
+      /* ===== CONTACT SECTION STYLES ===== */
+      .contact-section-container {
+        display: flex;
+        justify-content: center;
+        padding: 20px 20px 60px;
+        width: 100%;
+      }
+      .contact-panel {
+        border-radius: 16px;
+        box-shadow: var(--shadow);
+        padding: 30px;
+        width: 100%;
+        max-width: 600px;
+        text-align: center;
+      }
+      .contact-panel h2 {
+        margin-bottom: 25px;
+      }
+      .contact-form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+      .contact-form input,
+      .contact-form textarea {
+        width: 100%;
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        background: rgba(0, 0, 0, 0.2);
+        color: var(--text-color);
+        font-family: sans-serif;
+        font-size: 1rem;
+        transition: box-shadow 0.3s, border-color 0.3s;
+        backdrop-filter: blur(6px);
+      }
+      .contact-form input:focus,
+      .contact-form textarea:focus {
+        outline: none;
+        border-color: var(--highlight-color);
+        box-shadow: 0 0 8px var(--highlight-color);
+      }
+      .contact-form textarea {
+        resize: vertical;
+        min-height: 120px;
+      }
+      .contact-form .btn {
+        margin-top: 10px;
+        align-self: center;
+      }
+
+      /* ===== RESPONSIVE STYLES ===== */
+      
+      /* Large tablets and small desktops */
+      @media (max-width: 1200px) {
+        .intro-container {
+          max-width: 95vw;
+        }
+        .dashboard {
+          max-width: 95vw;
+        }
+        .lower-dashboard-row {
+          max-width: 95vw;
+        }
+        .hobbies-dashboard {
+          max-width: 95vw;
+        }
+      }
+      
+      /* Tablets */
+      @media (max-width: 900px) {
+        .content {
+          padding: 15px;
+        }
+        .intro-container {
+          flex-direction: column;
+          gap: 20px;
+        }
+        .text-box {
+          padding: 25px;
+          margin: 10px;
+          max-width: 90vw;
+        }
+        h1 {
+          font-size: 2.2rem;
+          white-space: normal;
+          text-align: center;
+        }
+        .dashboard {
+          flex-direction: column;
+          align-items: stretch;
+          gap: 20px;
+          padding: 20px 10px;
+        }
+        .skills-panel {
+          max-width: 95vw;
+          min-width: unset;
+          margin-bottom: 20px;
+        }
+        .skills-grid {
+          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+          gap: 15px;
+        }
+        .lower-dashboard-row {
+          flex-direction: column;
+          align-items: stretch;
+          gap: 20px;
+          padding: 20px 10px;
+        }
+        .cert-panel,
+        .proj-panel {
+          max-width: 95vw;
+          min-width: unset;
+          margin-bottom: 20px;
+        }
+        .hobbies-dashboard {
+          max-width: 95vw;
+          margin: 20px auto 30px;
+        }
+        .hobbies-grid {
+          grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+          gap: 15px;
+        }
+        .contact-section-container {
+          padding: 20px 15px 40px;
+        }
+        .contact-panel {
+          max-width: 95vw;
+        }
+      }
+
+      /* Mobile devices */
+      @media (max-width: 768px) {
+        .content {
+          padding: 10px;
+        }
+        .intro-container {
+          gap: 15px;
+        }
+        .text-box {
+          padding: 20px;
+          margin: 5px;
+          max-width: 95vw;
+        }
+        h1 {
+          font-size: 1.8rem;
+          line-height: 1.2;
+        }
+        p {
+          font-size: 1rem;
+          line-height: 1.4;
+        }
+        .profile-pic {
+          border-width: 3px;
+          max-width: 90vw;
+        }
+        .socials {
+          gap: 20px;
+        }
+        .socials a {
+          font-size: 1.2rem;
+        }
+        .btn {
+          padding: 10px 20px;
+          font-size: 0.9rem;
+        }
+        .dashboard {
+          padding: 15px 5px;
+        }
+        .skills-panel {
+          padding: 20px;
+          max-width: 98vw;
+        }
+        .skills-grid {
+          grid-template-columns: 1fr;
+          gap: 15px;
+        }
+        .skill p {
+          font-size: 1rem;
+        }
+        .skill p i {
+          font-size: 1.3rem;
+        }
+        .hobbies-dashboard {
+          max-width: 98vw;
+          margin: 15px auto 25px;
+        }
+        .hobbies-header {
+          padding: 20px;
+        }
+        .hobbies-content.open {
+          padding: 0 20px 20px 20px;
+        }
+        .hobbies-grid {
+          grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+          gap: 12px;
+        }
+        .hobby-card {
+          height: 150px;
+        }
+        .hobby-card-front .icon {
+          font-size: 1.6rem;
+        }
+        .hobby-card-front .title {
+          font-size: 0.9rem;
+        }
+        .hobby-card-back h3 {
+          font-size: 0.9rem;
+        }
+        .hobby-card-back li {
+          font-size: 0.7rem;
+        }
+        .lower-dashboard-row {
+          padding: 15px 5px;
+          gap: 15px;
+        }
+        .cert-panel,
+        .proj-panel {
+          max-width: 98vw;
+          margin-bottom: 15px;
+        }
+        .panel-header {
+          padding: 20px 15px 15px;
+          font-size: 1.1rem;
+        }
+        .cert-card,
+        .project-card {
+          max-width: 95vw;
+        }
+        .cert-card img,
+        .project-card img {
+          width: 70%;
+          max-width: 200px;
+        }
+        .cert-card p,
+        .project-card p {
+          padding: 12px;
+          font-size: 1rem;
+        }
+        .construction-overlay {
+          padding: 30px 15px;
+          min-height: 250px;
+        }
+        .construction-icon {
+          font-size: 3rem;
+          margin-bottom: 15px;
+        }
+        .construction-overlay h3 {
+          font-size: 1.5rem;
+          margin-bottom: 12px;
+        }
+        .construction-overlay p {
+          font-size: 1rem;
+          margin-bottom: 25px;
+          max-width: 250px;
+        }
+        .contact-section-container {
+          padding: 15px 10px 30px;
+        }
+        .contact-panel {
+          max-width: 98vw;
+          padding: 25px 20px;
+        }
+        .contact-form {
+          gap: 15px;
+        }
+        .contact-form input,
+        .contact-form textarea {
+          padding: 10px;
+          font-size: 0.9rem;
+        }
+        .scroll-btn {
+          padding: 8px 12px;
+          font-size: 0.9rem;
+        }
+        .scroll-up {
+          top: 15px;
+          left: 15px;
+        }
+        .scroll-down {
+          bottom: 15px;
+          left: 15px;
+        }
+      }
+
+      /* Small mobile devices */
+      @media (max-width: 480px) {
+        .content {
+          padding: 8px;
+        }
+        .text-box {
+          padding: 15px;
+          margin: 3px;
+          max-width: 98vw;
+        }
+        h1 {
+          font-size: 1.6rem;
+        }
+        p {
+          font-size: 0.9rem;
+        }
+        .profile-pic {
+          max-width: 95vw;
+        }
+        .socials {
+          gap: 15px;
+        }
+        .socials a {
+          font-size: 1.1rem;
+        }
+        .btn {
+          padding: 8px 16px;
+          font-size: 0.8rem;
+          margin: 10px 5px 5px;
+        }
+        .dashboard {
+          padding: 10px 3px;
+        }
+        .skills-panel {
+          padding: 15px;
+          max-width: 99vw;
+        }
+        .skills-section h2 {
+          font-size: 1.5rem;
+          margin-bottom: 20px;
+        }
+        .skill {
+          margin-bottom: 15px;
+        }
+        .skill p {
+          font-size: 0.9rem;
+          gap: 8px;
+        }
+        .skill p i {
+          font-size: 1.2rem;
+        }
+        .skill-level {
+          padding: 6px;
+          font-size: 0.8rem;
+        }
+        .hobbies-dashboard {
+          max-width: 99vw;
+          margin: 10px auto 20px;
+        }
+        .hobbies-header {
+          padding: 15px;
+        }
+        .hobbies-header .section-title {
+          font-size: 1.5rem;
+        }
+        .hobbies-content.open {
+          padding: 0 15px 15px 15px;
+        }
+        .hobbies-grid {
+          grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+          gap: 10px;
+        }
+        .hobby-card {
+          height: 130px;
+        }
+        .hobby-card-front .icon {
+          font-size: 1.4rem;
+          margin-bottom: 8px;
+        }
+        .hobby-card-front .title {
+          font-size: 0.8rem;
+        }
+        .hobby-card-back h3 {
+          font-size: 0.8rem;
+          margin-bottom: 8px;
+        }
+        .hobby-card-back li {
+          font-size: 0.65rem;
+          margin-bottom: 3px;
+        }
+        .lower-dashboard-row {
+          padding: 10px 3px;
+          gap: 10px;
+        }
+        .cert-panel,
+        .proj-panel {
+          max-width: 99vw;
+          margin-bottom: 10px;
+        }
+        .panel-header {
+          padding: 15px 10px 10px;
+          font-size: 1rem;
+        }
+        .cert-card,
+        .project-card {
+          max-width: 98vw;
+        }
+        .cert-card img,
+        .project-card img {
+          width: 80%;
+          max-width: 180px;
+          margin: 15px auto 0;
+        }
+        .cert-card p,
+        .project-card p {
+          padding: 10px;
+          font-size: 0.9rem;
+        }
+        .construction-overlay {
+          padding: 25px 10px;
+          min-height: 200px;
+        }
+        .construction-icon {
+          font-size: 2.5rem;
+          margin-bottom: 12px;
+        }
+        .construction-overlay h3 {
+          font-size: 1.3rem;
+          margin-bottom: 10px;
+        }
+        .construction-overlay p {
+          font-size: 0.9rem;
+          margin-bottom: 20px;
+          max-width: 200px;
+        }
+        .contact-section-container {
+          padding: 10px 5px 25px;
+        }
+        .contact-panel {
+          max-width: 99vw;
+          padding: 20px 15px;
+        }
+        .contact-panel h2 {
+          font-size: 1.5rem;
+          margin-bottom: 20px;
+        }
+        .contact-form {
+          gap: 12px;
+        }
+        .contact-form input,
+        .contact-form textarea {
+          padding: 8px;
+          font-size: 0.8rem;
+        }
+        .contact-form textarea {
+          min-height: 100px;
+        }
+        .scroll-btn {
+          padding: 6px 10px;
+          font-size: 0.8rem;
+        }
+        .scroll-up {
+          top: 10px;
+          left: 10px;
+        }
+        .scroll-down {
+          bottom: 10px;
+          left: 10px;
+        }
+      }
+
+      /* Extra small devices */
+      @media (max-width: 360px) {
+        .content {
+          padding: 5px;
+        }
+        .text-box {
+          padding: 12px;
+          margin: 2px;
+        }
+        h1 {
+          font-size: 1.4rem;
+        }
+        p {
+          font-size: 0.8rem;
+        }
+        .profile-pic {
+          max-width: 98vw;
+        }
+        .socials {
+          gap: 12px;
+        }
+        .socials a {
+          font-size: 1rem;
+        }
+        .btn {
+          padding: 6px 12px;
+          font-size: 0.7rem;
+        }
+        .skills-panel {
+          padding: 12px;
+        }
+        .hobbies-grid {
+          grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+          gap: 8px;
+        }
+        .hobby-card {
+          height: 120px;
+        }
+        .hobby-card-front .icon {
+          font-size: 1.2rem;
+        }
+        .hobby-card-front .title {
+          font-size: 0.7rem;
+        }
+        .hobby-card-back h3 {
+          font-size: 0.7rem;
+        }
+        .hobby-card-back li {
+          font-size: 0.6rem;
+        }
+        .panel-header {
+          padding: 12px 8px 8px;
+          font-size: 0.9rem;
+        }
+        .cert-card img,
+        .project-card img {
+          width: 85%;
+          max-width: 160px;
+        }
+        .construction-overlay {
+          padding: 20px 8px;
+          min-height: 180px;
+        }
+        .construction-icon {
+          font-size: 2rem;
+          margin-bottom: 10px;
+        }
+        .construction-overlay h3 {
+          font-size: 1.1rem;
+          margin-bottom: 8px;
+        }
+        .construction-overlay p {
+          font-size: 0.8rem;
+          margin-bottom: 15px;
+          max-width: 180px;
+        }
+        .contact-panel {
+          padding: 15px 10px;
+        }
+        .contact-form input,
+        .contact-form textarea {
+          padding: 6px;
+          font-size: 0.7rem;
+        }
+      }
+
+      /* Landscape orientation adjustments */
+      @media (max-height: 500px) and (orientation: landscape) {
+        .content {
+          min-height: auto;
+          padding: 10px;
+        }
+        .intro-container {
+          flex-direction: row;
+          gap: 20px;
+        }
+        .profile-pic {
+          max-width: 200px;
+        }
+        .text-box {
+          padding: 20px;
+        }
+        h1 {
+          font-size: 1.8rem;
+        }
+        .dashboard {
+          padding: 15px 10px;
+        }
+        .hobbies-dashboard {
+          margin: 15px auto 25px;
+        }
+        .hobby-card {
+          height: 140px;
+        }
+      }
+
+      /* High DPI displays */
+      @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+        .profile-pic {
+          image-rendering: -webkit-optimize-contrast;
+          image-rendering: crisp-edges;
+        }
+        .cert-card img,
+        .project-card img {
+          image-rendering: -webkit-optimize-contrast;
+          image-rendering: crisp-edges;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="particles-js"></div>
+    <div class="bg-warp"></div>
+
+    <button
+      class="scroll-btn scroll-up"
+      onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
+      aria-label="Scroll to top"
+    >
+      ↑
+    </button>
+    <button
+      class="scroll-btn scroll-down"
+      onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})"
+      aria-label="Scroll to bottom"
+    >
+      ↓
+    </button>
+    <div class="content">
+      <div class="intro-container">
+        <div class="profile-section">
+          <img
+            src="profile.jpg"
+            alt="Aditya Gupta profile picture"
+            class="profile-pic"
+          />
+        </div>
+        <div class="text-box">
+          <h1 id="typing-text"></h1>
+          <p>Tech Enthusiast</p>
+          <p>
+            A Passionate student, currently pursuing BTech in Computer Science
+            and Engineering with a focus on SAP Technologies.
+          </p>
+          <div class="button-section">
+            <a href="Aditya Resume.pdf" class="btn" download>Download Resume</a>
+            <div class="socials">
+              <a
+                href="https://github.com/Adgu0205"
+                target="_blank"
+                rel="noopener"
+                >GitHub</a
+              >
+              <a
+                href="https://www.linkedin.com/in/aditya-gupta-a6196129a/"
+                target="_blank"
+                rel="noopener"
+                >LinkedIn</a
+              >
+              <a
+                href="https://www.instagram.com/adityaaguptaaaa/"
+                target="_blank"
+                rel="noopener"
+                >Instagram</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="intro-placeholder"></div>
+
+    <div class="dashboard">
+      <div class="skills-panel">
+        <div class="skills-section">
+          <h2 class="section-title">Skills</h2>
+          <div class="skills-grid">
+            <div class="skill">
+              <p><i class="devicon-html5-plain"></i> HTML</p>
+              <div class="skill-bar">
+                <div class="skill-level" data-skill="60">60%</div>
+              </div>
+            </div>
+            <div class="skill">
+              <p><i class="devicon-css3-plain"></i> CSS</p>
+              <div class="skill-bar">
+                <div class="skill-level" data-skill="45">45%</div>
+              </div>
+            </div>
+            <div class="skill">
+              <p><i class="fas fa-database"></i> ABAP</p>
+              <div class="skill-bar">
+                <div class="skill-level" data-skill="40">40%</div>
+              </div>
+            </div>
+            <div class="skill">
+              <p><i class="devicon-python-plain"></i> Python</p>
+              <div class="skill-bar">
+                <div class="skill-level" data-skill="55">55%</div>
+              </div>
+            </div>
+            <div class="skill">
+              <p><i class="fas fa-chart-bar"></i> PowerBI</p>
+              <div class="skill-bar">
+                <div class="skill-level" data-skill="50">50%</div>
+              </div>
+            </div>
+            <div class="skill">
+              <p><i class="devicon-mysql-plain"></i> MySQL</p>
+              <div class="skill-bar">
+                <div class="skill-level" data-skill="70">70%</div>
+              </div>
+            </div>
+            <div class="skill">
+              <p><i class="fas fa-desktop"></i> Fiori</p>
+              <div class="skill-bar">
+                <div class="skill-level" data-skill="30">30%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hobbies-dashboard">
+      <div class="hobbies-header">
+        <h2 class="section-title">Hobbies</h2>
+        <span class="dropdown-arrow">▼</span>
+      </div>
+      <div class="hobbies-content">
+        <div class="hobbies-grid">
+          <div class="hobby-card">
+            <div class="hobby-card-inner">
+              <div class="hobby-card-front">
+                <div class="icon">🏸</div>
+                <div class="title">Sports</div>
+              </div>
+              <div class="hobby-card-back">
+                <h3>I Play</h3>
+                <ul>
+                  <li>Table Tennis</li>
+                  <li>Squash</li>
+                  <li>Badminton</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="hobby-card">
+            <div class="hobby-card-inner">
+              <div class="hobby-card-front">
+                <div class="icon">📷</div>
+                <div class="title">Photography</div>
+              </div>
+              <div class="hobby-card-back">
+                <h3>I click</h3>
+                <ul>
+                  <li>Diecast Photography</li>
+                  <li>Landscapes</li>
+                  <li>Automotive</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="hobby-card">
+            <div class="hobby-card-inner">
+              <div class="hobby-card-front">
+                <div class="icon">🎵</div>
+                <div class="title">Music</div>
+              </div>
+              <div class="hobby-card-back">
+                <h3>Genres</h3>
+                <ul>
+                  <li>Hip hop</li>
+                  <li>Retro</li>
+                  <li>EDM</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lower-dashboard-row">
+      <div class="cert-panel" id="cert-panel">
+        <div class="panel-header">Certifications</div>
+        <div class="panel-content">
+          <div class="cert-gallery">
+            <div class="cert-card">
+              <a
+                href="https://www.credly.com/badges/ba5c48c6-9502-4968-bf41-4e528d663995/public_url"
+                target="_blank"
+                rel="noopener"
+              >
+                <img src="certificate.png" alt="SAP ABAP Certification" />
+              </a>
+              <p>SAP Certified Development Associate - ABAP</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="proj-panel" id="proj-panel">
+        <div class="panel-header">Projects</div>
+        <div class="panel-content">
+          <div class="construction-overlay">
+            <div class="construction-icon">🚧</div>
+            <h3>Under Construction</h3>
+            <p>Projects are currently being developed. Check back soon!</p>
+            <div class="construction-animation">
+              <div class="construction-bar"></div>
+              <div class="construction-bar"></div>
+              <div class="construction-bar"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-section-container">
+      <div class="contact-panel">
+        <h2 class="section-title">Contact Me</h2>
+        <form
+          name="contact"
+          class="contact-form"
+          method="POST"
+          data-netlify="true"
+        >
+          <input type="text" name="name" placeholder="Your Name" required />
+          <input type="email" name="email" placeholder="Your Email" required />
+          <textarea
+            name="message"
+            placeholder="Your Message"
+            rows="5"
+            required
+          ></textarea>
+          <button type="submit" class="btn">Send Message</button>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      // Single DOMContentLoaded listener for all scripts
+      document.addEventListener("DOMContentLoaded", function () {
+        // Typewriter effect
+        const text = "Hello, I'm Aditya Gupta";
+        let i = 0;
+        function typeWriter() {
+          const typingEl = document.getElementById("typing-text");
+          if (!typingEl) return;
+          if (i < text.length) {
+            typingEl.textContent += text.charAt(i++);
+            setTimeout(typeWriter, 150);
+          } else {
+            typingEl.style.borderRight = "none";
+          }
+        }
+        setTimeout(typeWriter, 500);
+
+        // Accordion for Certifications & Projects Panels
+        function setupAccordion(panelId) {
+          const panel = document.getElementById(panelId);
+          if (!panel) return;
+          panel
+            .querySelector(".panel-header")
+            .addEventListener("click", function () {
+              panel.classList.toggle("open");
+            });
+        }
+        setupAccordion("cert-panel");
+        setupAccordion("proj-panel");
+
+        // Animate skill bars when in viewport
+        const skillsSections = document.querySelectorAll(".skills-section");
+        if (skillsSections.length > 0) {
+          const observer = new IntersectionObserver(
+            (entries, observer) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  document.querySelectorAll(".skill-level").forEach((bar) => {
+                    const skill = bar.getAttribute("data-skill");
+                    bar.style.width = skill + "%";
+                  });
+                  skillsSections.forEach((section) => {
+                    observer.unobserve(section);
+                  });
+                }
+              });
+            },
+            { threshold: 0.2 }
+          );
+
+          skillsSections.forEach((section) => {
+            observer.observe(section);
+          });
+        }
+
+        // Flip Card Logic for Hobbies
+        const hobbyCards = document.querySelectorAll(".hobby-card");
+        hobbyCards.forEach((card) => {
+          card.addEventListener("click", () => {
+            card.classList.toggle("is-flipped");
+          });
+        });
+
+        // Hobbies Dropdown Logic
+        const hobbiesHeader = document.querySelector(".hobbies-header");
+        if (hobbiesHeader) {
+          hobbiesHeader.addEventListener("click", () => {
+            const dashboard = hobbiesHeader.closest(".hobbies-dashboard");
+            const content = dashboard.querySelector(".hobbies-content");
+            dashboard.classList.toggle("open");
+            content.classList.toggle("open");
+          });
+        }
+
+        // Interactive background particles
+        function createParticles() {
+          const particlesContainer = document.getElementById('particles-js');
+          const particleCount = window.innerWidth < 768 ? 30 : 50; // Fewer particles on mobile
+          
+          for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 6 + 's';
+            particlesContainer.appendChild(particle);
+          }
+        }
+        
+        // Mouse interaction with particles (throttled for performance)
+        let mouseMoveTimeout;
+        function handleMouseMove(e) {
+          if (mouseMoveTimeout) return; // Throttle to 16ms (60fps)
+          
+          mouseMoveTimeout = setTimeout(() => {
+            const particles = document.querySelectorAll('.particle');
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+            
+            particles.forEach((particle, index) => {
+              const rect = particle.getBoundingClientRect();
+              const particleX = rect.left + rect.width / 2;
+              const particleY = rect.top + rect.height / 2;
+              
+              const distance = Math.sqrt(
+                Math.pow(mouseX - particleX, 2) + Math.pow(mouseY - particleY, 2)
+              );
+              
+              if (distance < 100) {
+                const angle = Math.atan2(mouseY - particleY, mouseX - particleX);
+                const force = (100 - distance) / 100;
+                const moveX = Math.cos(angle) * force * 20;
+                const moveY = Math.sin(angle) * force * 20;
+                
+                particle.style.transform = `translate(${moveX}px, ${moveY}px)`;
+                particle.style.opacity = 0.8 + force * 0.2;
+              } else {
+                particle.style.transform = '';
+                particle.style.opacity = '';
+              }
+            });
+            mouseMoveTimeout = null;
+          }, 16);
+        }
+        
+        // Initialize interactive background
+        createParticles();
+        document.addEventListener('mousemove', handleMouseMove);
+
+        // SCRIPT FOR SCROLL ANIMATION
+        const introContainer = document.querySelector(".intro-container");
+        const placeholder = document.querySelector(".intro-placeholder");
+        if (introContainer && placeholder) {
+          let introHeight = introContainer.offsetHeight;
+          placeholder.style.height = `${introHeight}px`;
+
+          window.addEventListener("scroll", () => {
+            if (window.scrollY > 150) {
+              introContainer.classList.add("scrolled");
+            } else {
+              introContainer.classList.remove("scrolled");
+            }
+          });
+
+          window.addEventListener("resize", () => {
+            if (!introContainer.classList.contains("scrolled")) {
+              introHeight = introContainer.offsetHeight;
+              placeholder.style.height = `${introHeight}px`;
+            }
+          });
+        }
+      });
+    </script>
+  </body>
+</html>
